@@ -1,0 +1,113 @@
+---
+title: "MXB344 Practical 1: Sanfran Crime"
+author: "Miles McBain"
+date: "2 August 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Intro
+This is a breif analysis of crime data from the summer of 2014 in the city of Sanfrancisco. Unlike other data you may have encountered, this is public data that is not from a designed experiment. It needs a bit of work to do some analysis on. We will do this work and investigate 3 questions:
+
+1. Can we identify the worst combinations of district, day, and time for crime? Where would you avoid?
+
+2. Can we show visually where crime hotspots are?
+
+3. Can we combine 1. and 2. intro a reproducible piece of analysis?
+
+#Learning Objectives
+The exercise aims to introduce you Rmarkdown, Github, and R packages for shaping, summarising and presenting data.
+
+#Requirements
+To complete this exercise you will need a computer with R Studio installed and the following packages:
+
+* `dplyr`
+* `ggplot2`
+* `readr`
+* `Rmarkdown`
+
+Install with `install.packages("dplyr", "ggplot2", "readr", "Rmarkdown")`.
+
+#Instructions
+
+**Note** If you are struggling conceptually with the R code in this exercise, it is a good idea to read up on [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) in *R for Data Science* by Hadley Wickham. 
+
+##Setting up
+Fork Repo on github
+clone
+set working directory
+```{r}
+setwd("~/repos/MXB344_wk2_prac/")
+```
+
+## Load Data
+This is what we're dealing with:
+```{r}
+library(readr) 
+sanfran_data <- read_csv("./data/sanfrancisco_incidents_summer_2014.csv")
+#readr::read_csv() is a good choice over read.csv(). The main reason for this is that it never creates factors in your data frame.
+#Try read.csv() if you like to see what headaches factors can cause while you are trying to clean and preprocess data.
+head(sanfran_data)
+```
+
+# Question 1
+## Filterting
+The question is about crime, yet we noticed from previous Load Data step there are some `NON-CRIMINAL` records mixed in. We can filter those out using `dplyr::filter`.
+```{r, eval=TRUE, echo=TRUE, include=FALSE}
+library(dplyr)
+library(tidyr)
+```
+```{r}
+sanfran_data <- 
+  sanfran_data %>%
+  filter(Category != "NON-CRIMINAL")
+```
+* Look at the unique entries in `sanfran_data$Category`. Are there other values you might want to filter out?
+
+
+##Summarisation
+We want to see if there are significant times or locations crime peaks. To do this our data needs to be summarised according to these variables. It looks as though we already have a district vaible: `pdDistrict` and a day variable: `DayOfWeek`.
+
+###Day of the week
+`dplyr::group_by()` and `dplyr::summarise()` work in tandem to produce the crime summary by day of week and district. `summarise()` always needs to be called on a grouped data frame.
+```{r, eval=TRUE}
+sanfran_data_day <- 
+  sanfran_data %>%
+  group_by(PdDistrict, DayOfWeek) %>%
+  summarise(n_crimes = n())
+head(sanfran_data_day)
+```
+* What kind of data is this?
+* Would it be fair to use a linear model with a normal likelihood?
+* What likelihood would suggest?
+
+##Exploratory Analysis
+To visualise the relationship between day, district and number of crimes a boxplot would be suitable, for example:
+```{r, eval=TRUE, echo=TRUE, include=FALSE}
+library(ggplot2)
+```
+```{r}
+ggplot(data = sanfran_data_day, aes(x=PdDistrict, y=n_crimes)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+* What does the relationship for day look like?
+* Try visualising the relationsip between both simultaneously using `geom_tile`. E.g. [like this](https://learnr.wordpress.com/2010/01/26/ggplot2-quick-heatmap-plotting/).
+
+#Linear Modelling
+The answer to Question 1 is probably clear by now. Depending on your audience it might be sufficent to tell the story with visuals alone. What if we need to determine if the effects are statistically significant? The only tool we have to do this at the moment are normal linear models. You should recall that fitting a pair of categorical variables to a continuous response can be done using an ANOVA. An ANOVA is really just a special name for a normal linear model with only categorical covariates. As such, it can be fit using the GLM framework using the `glm` function we have seen in class.
+
+* Try to fit a normal linear model to this data using `glm`. But give some deep thought to evaluating the assumptions. For normal linear models with categorical covariates (ANOVA) we need/assume:
+
+  + A continuous response
+  + Constant variance within each day, district, and thus for the resisuals over all fitted values.
+  + Normal residuals 
+  + Independence of observations - How to time and spatial correlation play into this issue?
+
+* Can you justify fitting a normal linear model in this case?
+
+#Question 2
