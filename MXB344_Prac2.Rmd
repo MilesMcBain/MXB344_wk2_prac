@@ -131,7 +131,7 @@ Visualising spatial information on maps can be a powerful way to explore pattern
 ## Using Coordinates
 This San Fransisco Crime dataset has some coordinate variables, perfect for plotting on maps. There is the `Location` variable, which has helpfully been split out into `X` and `Y`. `X` is longitutde and `Y` is latitude. 
 
-* If you copy some `Location` data into Google maps does it confirm `X` and `Y`?
+* If you copy some `Location` data into Google maps does it confirm of interpretation of `X` and `Y`?
 
 ##Plotting with leaflet
 
