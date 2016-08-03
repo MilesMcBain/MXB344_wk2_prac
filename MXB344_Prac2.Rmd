@@ -31,33 +31,39 @@ To complete this exercise you will need a computer with R Studio installed and t
 * `readr`
 * `rmarkdown`
 * `leaflet`
+* `tidyr`
 
-Install with `install.packages("dplyr", "ggplot2", "readr", )`.
+Install with `install.packages("dplyr", "ggplot2", "readr", etc )`.
 
 #Instructions
 
-**Note** The R code in this prac may look different to what you have seen before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. *R for Data Science* by Hadley Wickham is a very useful resource for the concepts covered here: [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) . 
+**Note** The R code in this prac may look different to what you have seen before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. *R for Data Science* by Hadley Wickham is a very useful resource for the concepts we wil cover in this prac. See [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) for further reading.    
+   
+In this practical you need to copmlete each of the following steps: 
 
-##Setting up
+1. Follow the _*Setting Up*_ instructions below. 
+2. Follow the instructions for each question. 
+3. Consider the discussion points in each question, and if necessary write R code to resolve them. 
+4. Commit your changes and sync them to your fork.
+5. **Optional**. Create a pull request for the main repo from your fork.
+
+##Setting Up
 Assuming you are on a QUT windows PC:
 
-1. install missing R packages in RStudio: `install.packages("readr","leaflet","tidyr")`
+1. Install missing R packages in RStudio: `install.packages("readr","leaflet","tidyr")`
 2. Fork the practical repository on github.com from [here](https://github.com/MilesMcBain/MXB344_wk2_prac)
 3. Install the github windows client from [https://desktop.github.com/](https://desktop.github.com/)
 4. Clone your fork of the prac to a directory on your workstation's hard disk.
 5. Open a local version of this source file.
-6. change the `setwd()` command below to the folder where you cloned the practical.
+6. Change the `setwd()` command below to the folder where you cloned the practical.
 7. knit this file to html.
-8. Consider the discussion points in each question and if necessary, write R code to resolve them.
-9. Commit your changes and sync them to your fork.
-10. **Optional**. Create a pull request for the main repo from your fork.
 
 ```{r}
 setwd("~/") #Will need to set this to the right path.
 ```
 
 ## Load Data
-This is what we're dealing with:
+Load the data file in your forked repo and use `head()` to see an initial snapshot of the data. 
 ```{r}
 library(readr) 
 sanfran_data <- read_csv("./data/sanfrancisco_incidents_summer_2014.csv")
@@ -67,8 +73,8 @@ head(sanfran_data)
 ```
 
 # Question 1
-## Filterting
-The question is about crime, yet we noticed from previous Load Data step there are some `NON-CRIMINAL` records mixed in. We can filter those out using `dplyr::filter`.
+## Filtering
+The question is about crime, yet we noticed from the previous Load Data step there are some `NON-CRIMINAL` records mixed in. We can filter those out using `dplyr::filter`.
 ```{r, eval=TRUE, echo=TRUE, include=FALSE}
 library(dplyr)
 library(tidyr)
@@ -82,10 +88,10 @@ sanfran_data <-
 
 
 ##Summarisation
-We want to see if there are significant times or locations crime peaks. To do this our data needs to be summarised according to these variables. It looks as though we already have a district vaible: `pdDistrict` and a day variable: `DayOfWeek`.
+We want to see if there are significant times or locations that crime peaks at. To do this our data needs to be summarised according to these variables. It looks as though we already have a district varible: `pdDistrict` and a day variable: `DayOfWeek`.
 
-###Day of the week
-`dplyr::group_by()` and `dplyr::summarise()` work in tandem to produce the crime summary by day of week and district. `summarise()` always needs to be called on a grouped data frame.
+###Day of the Week & District
+Summarise the data by day of week and district using `dplyr::group_by()` and `dplyr::summarise()`. `summarise()` always needs to be called on a grouped data frame.
 ```{r, eval=TRUE}
 sanfran_data_day <- 
   sanfran_data %>%
@@ -95,10 +101,10 @@ head(sanfran_data_day)
 ```
 * What kind of data is this?
 * Would it be fair to use a linear model with a normal likelihood?
-* What likelihood would suggest?
+* What likelihood would you suggest using?
 
 ##Exploratory Analysis
-To visualise the relationship between day, district and number of crimes a boxplot would be suitable, for example:
+To visualise the relationship between day, district and number of crimes a boxplot can be used, for example:
 ```{r, eval=TRUE, echo=TRUE, include=FALSE}
 library(ggplot2)
 ```
@@ -109,22 +115,22 @@ ggplot(data = sanfran_data_day, aes(x=PdDistrict, y=n_crimes)) +
 ```
 
 * What does the relationship for day look like?
-* Try visualising the relationsip between both simultaneously using `geom_tile`. E.g. [like this](https://learnr.wordpress.com/2010/01/26/ggplot2-quick-heatmap-plotting/).
+* Try visualising the relationship between both simultaneously using `geom_tile`. E.g. [like this](https://learnr.wordpress.com/2010/01/26/ggplot2-quick-heatmap-plotting/).
 
 ##Linear Modelling
-The answer to Question 1 is probably clear by now. Depending on your audience it might be sufficent to tell the story with visuals alone. What if we need to determine if the effects are statistically significant? The only tool we have to do this at the moment are normal linear models. You should recall that fitting a pair of categorical variables to a continuous response can be done using an ANOVA. An ANOVA is really just a special name for a normal linear model with only categorical covariates. As such, it can be fit using the GLM framework using the `glm` function we have seen in class.
+The answer to Question 1 is probably clear by now. Depending on your audience it might be sufficent to tell the story with visuals alone. What if we need to determine if the effects are statistically significant? At the moment, the only tools we have to do this are normal linear models. You should recall that fitting a pair of categorical variables to a continuous response can be done using an ANOVA. An ANOVA is really just a special name for a normal linear model with only categorical covariates. As such, it can be fit using the GLM framework using the `glm` function we have seen in class.
 
 * Try to fit a normal linear model to this data using `glm`. But give some deep thought to evaluating the assumptions. For normal linear models with categorical covariates (ANOVA) we need/assume:
   
   + A continuous response
-  + Constant variance within each day, district, and thus for the resisuals over all fitted values
+  + Constant variance within each day, district, and thus for the residuals over all fitted values
   + Normal residuals 
-  + Independence of observations - How do time and spatial correlation play into this issue?
+  + Independence of observations - how do time and spatial correlation play into this issue?
 
 * Can you justify fitting a normal linear model in this case?
 
 #Question 2
-Visualising spatial information on maps can be a powerful way to explore patterns. Historically these types of plots have been labourious to produce and required expensive tools. There are many R packages that can facilitate this kind of plot. We will do an example using the R package `leaflet`.
+Visualising spatial information on maps can be a powerful way to explore patterns. Historically these types of plots have been labourious to produce and required expensive tools. Thanks to the massive global open source R community, there are now many R packages that can facilitate these kinds of plot. We will do an example using the R package `leaflet`.
 
 ## Using Coordinates
 This San Fransisco Crime dataset has some coordinate variables, perfect for plotting on maps. There is the `Location` variable, which has helpfully been split out into `X` and `Y`. `X` is longitutde and `Y` is latitude. 
@@ -151,7 +157,7 @@ sanfran_map
 ```
 
 
-While this map automatically creates clusters of incidents:
+Alternatively, this map automatically creates clusters of incidents:
 
 ```{r}
 sanfran_map_cluster <- 
@@ -178,5 +184,5 @@ sanfran_map_cluster
 * Adding crime details to the cluster plot.
 
 #Question 3
-To complete this prac it suggested that you compile your responses into a `rmarkdown` report. Use this one as a template if you like. Or create your own structure. Ensure the whole thing can run from a new R session and generate your practical findings.
+To complete this prac it is suggested that you compile your responses into a `rmarkdown` report. Use this one as a template if you like, or create your own to customise the structure. Ensure the whole markdown file can compile successfully from a new R session and generate your practical findings.
 
