@@ -82,7 +82,7 @@ sanfran_data <-
 
 
 ##Summarisation
-We want to see if there are significant times or locations crime peaks. To do this our data needs to be summarised according to these variables. It looks as though we already have a district vaible: `pdDistrict` and a day variable: `DayOfWeek`.
+We want to see if there are significant times or locations that crime peaks. To do this our data needs to be summarised according to these variables. It looks as though we already have a district vaible: `pdDistrict` and a day variable: `DayOfWeek`.
 
 ###Crimes by Day of Week and District
 Below `dplyr::group_by()` and `dplyr::summarise()` work in tandem to produce the crime summary by day of week and district. `summarise()` always needs to be called on a grouped data frame.
@@ -94,7 +94,8 @@ sanfran_data_day <-
 head(sanfran_data_day)
 ```
 * What kind of data is this?
-* Would it be fair to use a linear model with a normal likelihood?
+* What does the function `n()` do?
+* Would it be fair to model this using a linear model with a normal likelihood?
 * What likelihood would you suggest?
 * **Expert:** Can you create a data frame that summarises the crimes by Hour of Day, Day of Week and District?
     + Check out `dplyr::mutate()` for starters.
