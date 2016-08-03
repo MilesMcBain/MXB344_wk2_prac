@@ -36,7 +36,7 @@ Install with `install.packages("dplyr", "ggplot2", "readr", )`.
 
 #Instructions
 
-**Note** The R code in this prac may look different to what you have encountered before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. This online text is a very useful resource for the concepts covered here: [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) in *R for Data Science* by Hadley Wickham. 
+**Note** The R code in this prac may look different to what you have seen before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. *R for Data Science* by Hadley Wickham is a very useful resource for the concepts covered here: [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) . 
 
 ##Setting up
 Assuming you are on a QUT windows PC:
@@ -49,6 +49,8 @@ Assuming you are on a QUT windows PC:
 6. change the `setwd()` command below to the folder where you cloned the practical.
 7. knit this file to html.
 8. Consider the discussion points in each question and if necessary, write R code to resolve them.
+9. Commit your changes and sync them to your fork.
+10. **Optional**. Create a pull request for the main repo from your fork.
 
 ```{r}
 setwd("~/") #Will need to set this to the right path.
