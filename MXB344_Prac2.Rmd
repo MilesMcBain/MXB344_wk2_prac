@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #Intro
-This is a breif analysis of crime data from the summer of 2014 in the city of San Francisco. Unlike other data you may have encountered, this is public data that is not from a designed experiment. It needs a bit of work to do some analysis on. We will do this work and investigate 3 questions:
+This is a brief analysis of crime data from the summer of 2014 in the city of San Francisco. Unlike other data you may have encountered, this is public data that is not from a designed experiment. It needs a bit of work to do some analysis on. We will do this work and investigate 3 questions:
 
 1. Can we identify the worst combinations of district, day, and time for crime? Where would you avoid?
 
