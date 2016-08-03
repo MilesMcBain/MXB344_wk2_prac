@@ -84,8 +84,8 @@ sanfran_data <-
 ##Summarisation
 We want to see if there are significant times or locations crime peaks. To do this our data needs to be summarised according to these variables. It looks as though we already have a district vaible: `pdDistrict` and a day variable: `DayOfWeek`.
 
-###Day of the week
-`dplyr::group_by()` and `dplyr::summarise()` work in tandem to produce the crime summary by day of week and district. `summarise()` always needs to be called on a grouped data frame.
+###Crimes by Day of Week and District
+Below `dplyr::group_by()` and `dplyr::summarise()` work in tandem to produce the crime summary by day of week and district. `summarise()` always needs to be called on a grouped data frame.
 ```{r, eval=TRUE}
 sanfran_data_day <- 
   sanfran_data %>%
@@ -96,6 +96,8 @@ head(sanfran_data_day)
 * What kind of data is this?
 * Would it be fair to use a linear model with a normal likelihood?
 * What likelihood would you suggest?
+* **Expert:** Can you create a data frame that summarises the crimes by Hour of Day, Day of Week and District?
+    + Check out `dplyr::mutate()` for starters.
 
 ##Exploratory Analysis
 To visualise the relationship between day, district and number of crimes a boxplot would be suitable, for example:
@@ -124,7 +126,7 @@ The answer to Question 1 is probably clear by now. Depending on your audience it
 * Can you justify fitting a normal linear model in this case?
 
 #Question 2
-Visualising spatial information on maps can be a powerful way to explore patterns. Historically these types of plots have been labourious to produce and required expensive tools. There are many R packages that can facilitate this kind of plot. We will do an example using the R package `leaflet`.
+Visualising spatial information on maps can be a powerful way to explore patterns. Historically these types of plots have been labourious to produce and required expensive tools. Luckily, there are many R packages that can facilitate this kind of plot. We will do an example using the R package `leaflet`.
 
 ## Using Coordinates
 This San Fransisco Crime dataset has some coordinate variables, perfect for plotting on maps. There is the `Location` variable, which has helpfully been split out into `X` and `Y`. `X` is longitutde and `Y` is latitude. 
