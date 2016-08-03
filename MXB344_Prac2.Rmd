@@ -5,8 +5,6 @@ date: "2 August 2016"
 output:
   html_document:
     toc: yes
-  pdf_document:
-    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -34,18 +32,26 @@ To complete this exercise you will need a computer with R Studio installed and t
 * `rmarkdown`
 * `leaflet`
 
-Install with `install.packages("dplyr", "ggplot2", "readr", "rmarkdown")`.
+Install with `install.packages("dplyr", "ggplot2", "readr", )`.
 
 #Instructions
 
-**Note** If you are struggling conceptually with the R code in this exercise, it is a good idea to read up on [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) in *R for Data Science* by Hadley Wickham. 
+**Note** The R code in this prac may look different to what you have encountered before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. This online text is a very useful resource for the concepts covered here: [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) in *R for Data Science* by Hadley Wickham. 
 
 ##Setting up
-Fork Repo on github
-clone
-set working directory
+Assuming you are on a QUT windows PC:
+
+1. install missing R packages in RStudio: `install.packages("readr","leaflet","tidyr")`
+2. Fork the practical repository on github.com from [here](https://github.com/MilesMcBain/MXB344_wk2_prac)
+3. Install the github windows client from [https://desktop.github.com/](https://desktop.github.com/)
+4. Clone your fork of the prac to a directory on your workstation's hard disk.
+5. Open a local version of this source file.
+6. change the `setwd()` command below to the folder where you cloned the practical.
+7. knit this file to html.
+8. Consider the discussion points in each question and if necessary, write R code to resolve them.
+
 ```{r}
-setwd("~/repos/MXB344_wk2_prac/")
+setwd("~/") #Will need to set this to the right path.
 ```
 
 ## Load Data
