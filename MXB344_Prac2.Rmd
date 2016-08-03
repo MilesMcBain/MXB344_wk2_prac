@@ -21,7 +21,7 @@ This is a brief analysis of crime data from the summer of 2014 in the city of Sa
 3. Can we combine 1. and 2. intro a reproducible piece of analysis?
 
 #Learning Objectives
-The exercise aims to introduce you Rmarkdown, Github, and R packages for shaping, summarising and presenting data.
+The exercise aims to introduce you to Rmarkdown, Github, and R packages for shaping, summarising and presenting data.
 
 #Requirements
 To complete this exercise you will need a computer with R Studio installed and the following packages:
@@ -32,21 +32,21 @@ To complete this exercise you will need a computer with R Studio installed and t
 * `rmarkdown`
 * `leaflet`
 
-Install with `install.packages("dplyr", "ggplot2", "readr", )`.
+Install with `install.packages("dplyr", "ggplot2", "readr", "rmarkdown","leaflet")`.
 
 #Instructions
 
-**Note** The R code in this prac may look different to what you have seen before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. *R for Data Science* by Hadley Wickham is a very useful resource for the concepts covered here: [data transformation with dplyr](http://r4ds.had.co.nz/transform.html) . 
+**Note** The R code in this prac may look different to what you have seen before. If so, Great! You're going to learn something. Feel free to ask for an explanation of **ANYTHING** no matter how trivial it may seem in the practical session. *R for Data Science* by Hadley Wickham is a very useful resource for the concepts covered here. See [data transformation with dplyr](http://r4ds.had.co.nz/transform.html). 
 
 ##Setting up
 Assuming you are on a QUT windows PC:
 
-1. install missing R packages in RStudio: `install.packages("readr","leaflet","tidyr")`
+1. Install missing R packages in RStudio: `install.packages("readr","leaflet","tidyr")`
 2. Fork the practical repository on github.com from [here](https://github.com/MilesMcBain/MXB344_wk2_prac)
 3. Install the github windows client from [https://desktop.github.com/](https://desktop.github.com/)
 4. Clone your fork of the prac to a directory on your workstation's hard disk.
 5. Open a local version of this source file.
-6. change the `setwd()` command below to the folder where you cloned the practical.
+6. change the `setwd()` command below to the folder where you cloned the practical repo.
 7. knit this file to html.
 8. Consider the discussion points in each question and if necessary, write R code to resolve them.
 9. Commit your changes and sync them to your fork.
@@ -57,17 +57,17 @@ setwd("~/") #Will need to set this to the right path.
 ```
 
 ## Load Data
-This is what we're dealing with:
+Let's load the data and have a look at what we're dealing with:
 ```{r}
 library(readr) 
 sanfran_data <- read_csv("./data/sanfrancisco_incidents_summer_2014.csv")
 #readr::read_csv() is a good choice over read.csv(). The main reason for this is that it never creates factors in your data frame.
-#Try read.csv() if you like to see what headaches factors can cause while you are trying to clean and preprocess data.
+#Try read.csv() if you like, to see what headaches factors can cause while you are trying to clean and preprocess data.
 head(sanfran_data)
 ```
 
 # Question 1
-## Filterting
+## Filtering
 The question is about crime, yet we noticed from previous Load Data step there are some `NON-CRIMINAL` records mixed in. We can filter those out using `dplyr::filter`.
 ```{r, eval=TRUE, echo=TRUE, include=FALSE}
 library(dplyr)
@@ -95,7 +95,7 @@ head(sanfran_data_day)
 ```
 * What kind of data is this?
 * Would it be fair to use a linear model with a normal likelihood?
-* What likelihood would suggest?
+* What likelihood would you suggest?
 
 ##Exploratory Analysis
 To visualise the relationship between day, district and number of crimes a boxplot would be suitable, for example:
