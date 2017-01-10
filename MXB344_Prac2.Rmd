@@ -117,7 +117,7 @@ ggplot(data = sanfran_data_day, aes(x=PdDistrict, y=n_crimes)) +
 ##Linear Modelling
 The answer to Question 1 is probably clear by now. Depending on your audience it might be sufficent to tell the story with visuals alone. What if we need to determine if the effects are statistically significant? The only tool we have to do this at the moment are normal linear models. You should recall that fitting a pair of categorical variables to a continuous response can be done using an ANOVA. An ANOVA is really just a special name for a normal linear model with only categorical covariates. As such, it can be fit using the GLM framework using the `glm` function we have seen in class.
 
-* Try to fit a normal linear model to this data using `glm`. But give some deep thought to evaluating the assumptions. For normal linear models with categorical covariates (ANOVA) we need/assume:
+* Try to fit a normal linear model to the summarised data using `glm`. But give some deep thought to evaluating the assumptions. For normal linear models with categorical covariates (ANOVA) we need/assume:
   
   + A continuous response
   + Constant variance within each day, district, and thus for the resisuals over all fitted values
