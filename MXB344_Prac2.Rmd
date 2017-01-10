@@ -53,7 +53,7 @@ Assuming you are on a QUT windows PC:
 10. **Optional**. Create a pull request for the main repo from your fork.
 
 ```{r}
-setwd("~/") #Will need to set this to the right path.
+#setwd("~/") #Will need to set this to the right path.
 ```
 
 ## Load Data
